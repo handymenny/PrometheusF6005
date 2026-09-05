@@ -37,7 +37,7 @@ func (s *Session) LoadLanInfo() (*LanInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer closeBody(resp.Body)
 
 	var result LanInfoResponse
 	if err := xml.NewDecoder(resp.Body).Decode(&result); err != nil {

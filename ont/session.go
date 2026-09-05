@@ -1,6 +1,7 @@
 package ont
 
 import (
+	"io"
 	"net/http"
 )
 
@@ -14,5 +15,14 @@ func (s *Session) getAndClose(url string) {
 	if err != nil {
 		return
 	}
-	_ = resp.Body.Close()
+	closeBody(resp.Body)
+}
+
+func closeBody(body io.ReadCloser) {
+    if body == nil {
+        return
+    }
+
+    _, _ = io.Copy(io.Discard, body)
+    _ = body.Close()
 }

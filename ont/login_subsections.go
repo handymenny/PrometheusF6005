@@ -17,7 +17,7 @@ func (s *Session) GetSessionToken() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	defer resp.Body.Close()
+	defer closeBody(resp.Body)
 
 	var result SessionTokenResponse
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {

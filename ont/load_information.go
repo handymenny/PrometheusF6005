@@ -34,7 +34,7 @@ func (s *Session) LoadDeviceInfo() (*DeviceInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer closeBody(resp.Body)
 
 	var result InformationResponse
 	if err := xml.NewDecoder(resp.Body).Decode(&result); err != nil {

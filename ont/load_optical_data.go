@@ -27,7 +27,7 @@ func (s *Session) LoadOpticalData() (*OpticalInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer closeBody(resp.Body)
 
 	var result OpticalDataResponse
 	if err := xml.NewDecoder(resp.Body).Decode(&result); err != nil {
